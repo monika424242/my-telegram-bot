@@ -1,6 +1,23 @@
+import os
+import threading
+from flask import Flask
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+# Web server for Render health check
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is active!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+threading.Thread(target=run_flask, daemon=True).start()
+
+# Telegram Bot Setup
 TOKEN = "8692725311:AAHZv5uAsKe2iUesrhYxw9rX97wfPboJDDM"
 ADMIN_CHAT_ID = "8520115054"
 UPI_ID = "ra99hu99-1@okaxis"
@@ -15,7 +32,7 @@ def send_welcome(message):
     active_users.add(message.chat.id)
     welcome_text = (
         "👋 **Welcome to Our Video Collection Store!**\n\n"
-        "Aapko kitni videos chahiye? Niche diye gaye plans me se apna plan select karein:\n\n"
+        "Aapko kitni videos chahiye? Niche दिए गए plans me se apna plan select karein:\n\n"
         "✨ **Plan 1:** 1,000 Videos = ₹49\n"
         "✨ **Plan 2:** 2,000 Videos = ₹199\n"
         "✨ **Plan 3:** 5,000 Videos = ₹299\n\n"
@@ -111,4 +128,4 @@ def broadcast_message(message):
 
 print("Bot Running...")
 bot.infinity_polling()
-                     
+    
