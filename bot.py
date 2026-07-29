@@ -34,7 +34,7 @@ def send_welcome(message):
     active_users.add(message.chat.id)
     welcome_text = (
         "👋 **Welcome to Our Video Collection Store!**\n\n"
-        "Aapko kitni videos chahiye? Niche दिए गए plans me se apna plan select karein:\n\n"
+        "Aapko kitni videos chahiye? Niche diye gye plans me se apna plan select karein:\n\n"
         "✨ **Plan 1:** 1,000 Videos = ₹49\n"
         "✨ **Plan 2:** 2,000 Videos = ₹199\n"
         "✨ **Plan 3:** 5,000 Videos = ₹299\n\n"
