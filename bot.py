@@ -4,19 +4,6 @@ from flask import Flask
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# Web server for Render health check
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Bot is active!"
-
-def run_flask():
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-
-threading.Thread(target=run_flask, daemon=True).start()
-
 # Telegram Bot Setup
 TOKEN = "8692725311:AAHZv5uAsKe2iUesrhYxw9rX97wfPboJDDM"
 ADMIN_CHAT_ID = "8520115054"
@@ -25,6 +12,21 @@ QR_IMAGE_URL = "https://i.ibb.co/QvjF8yHB/IMG-20260729-WA0000.jpg"
 
 bot = telebot.TeleBot(TOKEN)
 active_users = set()
+
+# Bot polling function (runs in background)
+def run_bot():
+    print("Bot polling started...")
+    bot.infinity_polling(skip_pending=True)
+
+# Start Bot Thread
+threading.Thread(target=run_bot, daemon=True).start()
+
+# Flask Web Server for Render
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Telegram Bot is Running Active 24/7!"
 
 # 1. Start Command
 @bot.message_handler(commands=['start', 'help'])
@@ -126,6 +128,7 @@ def broadcast_message(message):
             fail_count += 1
     bot.send_message(ADMIN_CHAT_ID, f"✅ **Broadcast Completed!**\n\n🎯 Success: {success_count}\n❌ Failed: {fail_count}")
 
-print("Bot Running...")
-bot.infinity_polling()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
     
