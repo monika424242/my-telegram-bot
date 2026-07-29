@@ -30,14 +30,14 @@ def send_welcome(message):
     active_users.add(message.chat.id)
     welcome_text = (
         "👋 Welcome to Our Video Collection Store!\n\n"
-        "Aapko kitni videos chahiye? Niche diye gaye plans me se apna plan select karein:\n\n"
+        "Aapko kitni videos chahiye? Niche दिए गए plans me se apna plan select karein:\n\n"
         "✨ Plan 1: 1,000 Videos = ₹99\n"
         "✨ Plan 2: 2,000 Videos = ₹199\n"
         "✨ Plan 3: 5,000 Videos = ₹299\n\n"
         "👉 Niche button par click karke apna plan select karein."
     )
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton("📦 1000 Videos - ₹99", callback_data="plan_49"))
+    markup.add(InlineKeyboardButton("📦 1000 Videos - ₹99", callback_data="plan_99"))
     markup.add(InlineKeyboardButton("📦 2000 Videos - ₹199", callback_data="plan_199"))
     markup.add(InlineKeyboardButton("📦 5000 Videos - ₹299", callback_data="plan_299"))
     bot.reply_to(message, welcome_text, reply_markup=markup)
@@ -137,3 +137,4 @@ def broadcast_message(message):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+    
